@@ -27,9 +27,9 @@ import (
 )
 
 // ScoreDB defines pointer to Score database
-var ScoresDB *sql.DB
+var _scoresDB *sql.DB
 
-// initScoresDB sets pointer to ScoresDB
+// initScoresDB sets pointer to _scoresDB
 func initScoresDB(uri string) (*sql.DB, error) {
 	dbAttrs := strings.Split(uri, "://")
 	if len(dbAttrs) != 2 {
@@ -70,7 +70,7 @@ func GetScores(stype string) []ScoreRecord {
 	if stype == "private" {
 		stmt = "select name, private from scores"
 	}
-	rows, err := ScoresDB.Query(stmt)
+	rows, err := _scoresDB.Query(stmt)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -94,10 +94,10 @@ func GetScores(stype string) []ScoreRecord {
 
 }
 
-// InsertScore insert given files into ScoresDB
+// InsertScore insert given files into _scoresDB
 func InsertScore(name string, score, private float64) error {
 	// proceed with transaction operation
-	tx, err := ScoresDB.Begin()
+	tx, err := _scoresDB.Begin()
 	if err != nil {
 		log.Println("DB error", err)
 		return err

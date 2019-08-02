@@ -27,8 +27,8 @@ func Server(configFile string) {
 	_top = templates.Top(Config.Templates, tmplData)
 	_bottom = templates.Bottom(Config.Templates, tmplData)
 
-	// Initialize ScoresDB
-	ScoresDB, err = initScoresDB(Config.Uri)
+	// Initialize _scoresDB
+	_scoresDB, err = initScoresDB(Config.Uri)
 
 	// http handlers
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir(Config.Styles))))
