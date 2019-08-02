@@ -26,7 +26,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-// global variable to keep pointer to ScoresDB
+// ScoreDB defines pointer to Score database
 var ScoresDB *sql.DB
 
 // InitScoresDB sets pointer to ScoresDB

@@ -10,7 +10,10 @@ import (
 	"net/http"
 )
 
+// VERBOSE defines verbosity level
 var VERBOSE int
+
+// ScoreFile defines location of score file
 var ScoreFile string
 var _top, _bottom, _search string
 
