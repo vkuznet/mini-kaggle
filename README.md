@@ -1,4 +1,9 @@
 ### Mini-Kaggle web services
+
+[![Build Status](https://travis-ci.org/vkuznet/mini-kaggle.svg?branch=master)](https://travis-ci.org/vkuznet/mini-kaggle)
+[![Go Report Card](https://goreportcard.com/badge/github.com/vkuznet/mini-kaggle)](https://goreportcard.com/report/github.com/vkuznet/mini-kaggle)
+[![GoDoc](https://godoc.org/github.com/vkuznet/mini-kaggle?status.svg)](https://godoc.org/github.com/vkuznet/mini-kaggle)
+
 A Mini-Kaggle is [Kaggle](https://www.kaggle.com) inspired web service
 with minimalistic interface. It can be used for DataScience classes,
 small projects, or just for fun, to host user scores based on ML
