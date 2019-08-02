@@ -1,0 +1,8 @@
+language: go
+sudo: false
+go:
+  - 1.12
+install:
+  - go get github.com/mattn/go-sqlite3
+  - go get github.com/gonum/stat
+  - go get github.com/gonum/integrate
