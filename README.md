@@ -36,3 +36,6 @@ go build
 # navigate to your service, e.g. (if it runs on port 8888, see server.json)
 http://localhost:8888
 ```
+### Interface
+![Home](images/home.png)
+![Dashboard](images/dashboard.png)
