@@ -29,6 +29,9 @@ func Server(configFile string) {
 
 	// Initialize _scoresDB
 	_scoresDB, err = initScoresDB(Config.Uri)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// http handlers
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir(Config.Styles))))

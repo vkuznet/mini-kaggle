@@ -40,6 +40,9 @@ func initScoresDB(uri string) (*sql.DB, error) {
 		return nil, err
 	}
 	err = db.Ping()
+	if err != nil {
+		return nil, err
+	}
 	db.SetMaxOpenConns(100)
 	db.SetMaxIdleConns(100)
 
