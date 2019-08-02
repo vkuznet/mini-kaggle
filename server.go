@@ -10,20 +10,17 @@ import (
 	"net/http"
 )
 
-// VERBOSE defines verbosity level
-var VERBOSE int
+var _verbose int
+var _scoreFile, _top, _bottom string
 
-// ScoreFile defines location of score file
-var ScoreFile string
-var _top, _bottom, _search string
-
+// Server function implements web server functionality
 func Server(configFile string) {
 	err := ParseConfig(configFile)
 	if err != nil {
 		log.Fatal(err)
 	}
-	VERBOSE = Config.Verbose
-	ScoreFile = Config.ScoreFile
+	_verbose = Config.Verbose
+	_scoreFile = Config.ScoreFile
 	var templates ServerTemplates
 	tmplData := make(map[string]interface{})
 	tmplData["Bottom"] = "&#169;, Valentin Kuznetsov, 2019"
@@ -31,7 +28,7 @@ func Server(configFile string) {
 	_bottom = templates.Bottom(Config.Templates, tmplData)
 
 	// Initialize ScoresDB
-	ScoresDB, err = InitScoresDB(Config.Uri)
+	ScoresDB, err = initScoresDB(Config.Uri)
 
 	// http handlers
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir(Config.Styles))))

@@ -20,7 +20,7 @@ import (
 func auc(y []float64, classes []bool) float64 {
 	// find tpr, fpr values
 	tpr, fpr := stat.ROC(0, y, classes, nil)
-	if VERBOSE > 0 {
+	if _verbose > 0 {
 		log.Println("preds", y, len(y), "classes", classes, len(classes), "TPR", tpr, "FPR", fpr)
 	}
 	// compute Area Under Curve
@@ -29,10 +29,10 @@ func auc(y []float64, classes []bool) float64 {
 }
 
 func getScore(values []float64) float64 {
-	// read ScoreFile
-	csvFile, err := os.Open(ScoreFile)
+	// read _scoreFile
+	csvFile, err := os.Open(_scoreFile)
 	if err != nil {
-		log.Println("error", err, "file", ScoreFile)
+		log.Println("error", err, "file", _scoreFile)
 		return 0
 	}
 	defer csvFile.Close()
@@ -58,7 +58,6 @@ func getScore(values []float64) float64 {
 }
 
 func findScore(file string) float64 {
-	// read ScoreFile
 	csvFile, err := os.Open(file)
 	if err != nil {
 		log.Println("error", err, "file", file)
@@ -74,7 +73,7 @@ func findScore(file string) float64 {
 		}
 		p, err := strconv.ParseFloat(line[1], 64)
 		if err != nil {
-			if VERBOSE > 0 {
+			if _verbose > 0 {
 				log.Println("findScore: parse error", err, "value", line)
 			}
 			continue

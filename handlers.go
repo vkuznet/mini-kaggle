@@ -22,7 +22,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer r.Body.Close()
-	if VERBOSE > 0 {
+	if _verbose > 0 {
 		log.Println("UploadHandler: Header", r.Header)
 	}
 
@@ -116,7 +116,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
-	if VERBOSE > 0 {
+	if _verbose > 0 {
 		log.Println("RequestHandler", r)
 	}
 	var templates ServerTemplates
@@ -132,7 +132,7 @@ func DashboardHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
-	if VERBOSE > 0 {
+	if _verbose > 0 {
 		log.Println("StatusHandler", r)
 	}
 	err := r.ParseForm()

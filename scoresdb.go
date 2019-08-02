@@ -29,8 +29,8 @@ import (
 // ScoreDB defines pointer to Score database
 var ScoresDB *sql.DB
 
-// InitScoresDB sets pointer to ScoresDB
-func InitScoresDB(uri string) (*sql.DB, error) {
+// initScoresDB sets pointer to ScoresDB
+func initScoresDB(uri string) (*sql.DB, error) {
 	dbAttrs := strings.Split(uri, "://")
 	if len(dbAttrs) != 2 {
 		return nil, errors.New("Please provide proper ScoresDB uri")
