@@ -37,5 +37,8 @@ go build
 http://localhost:8888
 ```
 ### Interface
+Home interface provides ability to upload your score file to the service:
 ![Home](images/home.png)
+
+The Dashboard page provides basic dashboard with existing scores:
 ![Dashboard](images/dashboard.png)
