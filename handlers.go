@@ -102,8 +102,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write(js)
 		return
 	}
-	score := getScore(dstFileName)
-	private := 0.0 // private score TODO
+	score, private := getScores(dstFileName)
 	InsertScore(name, score, private)
 	msg := fmt.Sprintf("Your file %s has been successfully uploaded, score: %f", header.Filename, score)
 	var templates ServerTemplates

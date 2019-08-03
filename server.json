@@ -1,12 +1,12 @@
 {
-    "uri":"sqlite3:///tmp/scores.db",
+    "uri":"sqlite3:///tmp/homesite-scores.db",
     "port": 8888,
     "templates": "templates",
     "jscripts": "js",
     "styles": "css",
     "images": "images",
-    "ScoreFile": "scores.csv",
-    "PrivateScoreFile": "scores.csv",
+    "ScoreFile": "homesite-scores.csv",
+    "ScoreSplit": 0.7,
     "Destination": "/tmp/",
     "Metric": "auc",
     "verbose": 0
