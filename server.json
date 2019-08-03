@@ -1,11 +1,12 @@
 {
     "uri":"sqlite3:///tmp/scores.db",
     "port": 8888,
-    "templates": "/Users/vk/Work/DataAnalysis/GIT/sosc2018/web/templates",
-    "jscripts": "/Users/vk/Work/DataAnalysis/GIT/sosc2018/web/js",
-    "styles": "/Users/vk/Work/DataAnalysis/GIT/sosc2018/web/css",
-    "images": "/Users/vk/Work/DataAnalysis/GIT/sosc2018/web/images",
-    "ScoreFile": "/Users/vk/Work/DataAnalysis/GIT/sosc2018/web/scores.csv",
+    "templates": "templates",
+    "jscripts": "js",
+    "styles": "css",
+    "images": "images",
+    "ScoreFile": "scores.csv",
+    "PrivateScoreFile": "scores.csv",
     "Destination": "/tmp/",
     "verbose": 0
 }

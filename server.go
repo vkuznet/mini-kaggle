@@ -35,7 +35,6 @@ func Server(configFile string) {
 
 	// http handlers
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir(Config.Styles))))
-	http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir(Config.Jscripts))))
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir(Config.Images))))
 	http.HandleFunc("/dashboard", DashboardHandler)
 	http.HandleFunc("/upload", UploadHandler)
