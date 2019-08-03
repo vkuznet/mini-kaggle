@@ -7,8 +7,6 @@ package main
 import (
 	"bufio"
 	"encoding/csv"
-	"errors"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -45,13 +43,7 @@ func getMetric(values []float64) float64 {
 	}
 	// sort our values and labels
 	stat.SortWeightedLabeled(values, labels, nil)
-	if Config.Metric == "auc" {
-		return auc(values, labels)
-	} else {
-		msg := fmt.Sprintf("Not implemented metric: %s", Config.Metric)
-		log.Fatal(errors.New(msg))
-	}
-	return 0
+	return calcMetric(values, labels)
 }
 
 func getScore(file string) float64 {
