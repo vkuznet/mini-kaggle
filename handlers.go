@@ -15,6 +15,10 @@ import (
 	"strings"
 )
 
+func logRequest(r *http.Request) {
+	log.Println(r.Method, r.URL, r.RemoteAddr)
+}
+
 // UploadHandler uploads predictions to the server (/upload API)
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
@@ -22,6 +26,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer r.Body.Close()
+	logRequest(r)
 	if _verbose > 0 {
 		log.Println("UploadHandler: Header", r.Header)
 	}
@@ -30,7 +35,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	name := r.FormValue("name")
 	if name == "" {
 		log.Println("UploadHandler name is not provided")
-		http.Error(w, "Please name for your submission", http.StatusInternalServerError)
+		http.Error(w, "Please provide name for your submission", http.StatusInternalServerError)
 		return
 	}
 	file, header, err := r.FormFile("file")
@@ -97,7 +102,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write(js)
 		return
 	}
-	score := findScore(dstFileName)
+	score := getScore(dstFileName)
 	private := 0.0 // private score TODO
 	InsertScore(name, score, private)
 	msg := fmt.Sprintf("Your file %s has been successfully uploaded, score: %f", header.Filename, score)
@@ -116,6 +121,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
+	logRequest(r)
 	if _verbose > 0 {
 		log.Println("RequestHandler", r)
 	}
@@ -132,6 +138,7 @@ func DashboardHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
+	logRequest(r)
 	if _verbose > 0 {
 		log.Println("StatusHandler", r)
 	}

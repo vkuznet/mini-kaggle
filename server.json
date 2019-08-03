@@ -8,5 +8,6 @@
     "ScoreFile": "scores.csv",
     "PrivateScoreFile": "scores.csv",
     "Destination": "/tmp/",
+    "Metric": "auc",
     "verbose": 0
 }

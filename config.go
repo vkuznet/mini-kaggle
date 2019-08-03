@@ -24,6 +24,7 @@ type Configuration struct {
 	ScoreFile        string `json:"scoreFile"`        // score file
 	PrivateScoreFile string `json:"privateScoreFile"` // private score file
 	Destination      string `json:"destination"`      // location of submissions
+	Metric           string `json:"metric"`           // metric to use, e.g. AUC
 	Verbose          int    `json:"verbose"`          // verbosity level
 }
 
@@ -32,7 +33,7 @@ var Config Configuration
 
 // String returns string representation of server Config
 func (c *Configuration) String() string {
-	return fmt.Sprintf("<Config port=%d templates=%s js=%s images=%s css=%s scores=%s privateScores=%s dst=%s>", c.Port, c.Templates, c.Jscripts, c.Images, c.Styles, c.ScoreFile, c.PrivateScoreFile, c.Destination)
+	return fmt.Sprintf("<Config port=%d templates=%s js=%s images=%s css=%s scores=%s privateScores=%s dst=%s metric=%s>", c.Port, c.Templates, c.Jscripts, c.Images, c.Styles, c.ScoreFile, c.PrivateScoreFile, c.Destination, c.Metric)
 }
 
 // helper function to return full path of given file

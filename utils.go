@@ -7,28 +7,19 @@ package main
 import (
 	"bufio"
 	"encoding/csv"
+	"errors"
+	"fmt"
 	"io"
 	"log"
 	"os"
 	"strconv"
 
-	"github.com/gonum/integrate"
 	"github.com/gonum/stat"
 )
 
-// helper function to calculate AUC
-func auc(y []float64, classes []bool) float64 {
-	// find tpr, fpr values
-	tpr, fpr := stat.ROC(0, y, classes, nil)
-	if _verbose > 0 {
-		log.Println("preds", y, len(y), "classes", classes, len(classes), "TPR", tpr, "FPR", fpr)
-	}
-	// compute Area Under Curve
-	auc := integrate.Trapezoidal(fpr, tpr)
-	return auc
-}
-
-func getScore(values []float64) float64 {
+// helper function to get the scores
+// it should be extended when new metric is implemented
+func getMetric(values []float64) float64 {
 	// read _scoreFile
 	csvFile, err := os.Open(_scoreFile)
 	if err != nil {
@@ -52,12 +43,18 @@ func getScore(values []float64) float64 {
 			labels = append(labels, false)
 		}
 	}
-	// calculate AUC
+	// sort our values and labels
 	stat.SortWeightedLabeled(values, labels, nil)
-	return auc(values, labels)
+	if Config.Metric == "auc" {
+		return auc(values, labels)
+	} else {
+		msg := fmt.Sprintf("Not implemented metric: %s", Config.Metric)
+		log.Fatal(errors.New(msg))
+	}
+	return 0
 }
 
-func findScore(file string) float64 {
+func getScore(file string) float64 {
 	csvFile, err := os.Open(file)
 	if err != nil {
 		log.Println("error", err, "file", file)
@@ -80,5 +77,5 @@ func findScore(file string) float64 {
 		}
 		preds = append(preds, p)
 	}
-	return getScore(preds)
+	return getMetric(preds)
 }
