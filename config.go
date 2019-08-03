@@ -33,7 +33,7 @@ var Config Configuration
 
 // String returns string representation of server Config
 func (c *Configuration) String() string {
-	return fmt.Sprintf("<Config port=%d templates=%s js=%s images=%s css=%s scores=%s ScoreSplit=%s dst=%s metric=%s>", c.Port, c.Templates, c.Jscripts, c.Images, c.Styles, c.ScoreFile, c.ScoreSplit, c.Destination, c.Metric)
+	return fmt.Sprintf("<Config port=%d templates=%s js=%s images=%s css=%s scores=%s ScoreSplit=%f dst=%s metric=%s>", c.Port, c.Templates, c.Jscripts, c.Images, c.Styles, c.ScoreFile, c.ScoreSplit, c.Destination, c.Metric)
 }
 
 // helper function to return full path of given file
