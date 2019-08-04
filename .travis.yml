@@ -6,3 +6,4 @@ install:
   - go get github.com/mattn/go-sqlite3
   - go get github.com/gonum/stat
   - go get github.com/gonum/integrate
+  - go get github.com/bsm/mlmetrics
