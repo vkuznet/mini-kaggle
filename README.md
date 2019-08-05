@@ -50,6 +50,7 @@ The configuration file `serve.json` should have the following structure:
     "scoreFile": "scores.csv",
     "scoreSplit": 0.7,
     "destination": "/tmp/",
+    "privateKey": "123",
     "metric": "auc",
     "verbose": 0
 }
@@ -58,7 +59,8 @@ Here `uri` defines location of SQLite scores DB, `tempaltes`, `jscripts`,
 `styles`, `images` define location of appropriate areas for web server. The
 `ScoreFile` points to location of score file, while `ScoreSplit` defines
 a split to divide scores into public and private sets, in this example we
-use 70% (0.7) for public scores and 30% for private ones. Finally,
+use 70% (0.7) for public scores and 30% for private ones. The `privateKey`
+string defines access key to private dashboard. Finally,
 you should specify one of the supported metrics, see [metrics.go](metrics.go)
 file.
 

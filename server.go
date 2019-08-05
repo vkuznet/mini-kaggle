@@ -37,6 +37,8 @@ func Server(configFile string) {
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir(Config.Styles))))
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir(Config.Images))))
 	http.HandleFunc("/dashboard", DashboardHandler)
+	http.HandleFunc("/private-login", PrivateLoginHandler)
+	http.HandleFunc("/private", PrivateDashboardHandler)
 	http.HandleFunc("/upload", UploadHandler)
 	http.HandleFunc("/", HomeHandler)
 	http.ListenAndServe(fmt.Sprintf(":%d", Config.Port), nil)

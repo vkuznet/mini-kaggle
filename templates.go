@@ -93,3 +93,12 @@ func (q ServerTemplates) Dashboard(tdir string, tmplData map[string]interface{})
 	q.dasError = parseTmpl(Config.Templates, "dashboard.tmpl", tmplData)
 	return q.dasError
 }
+
+// PrivateLogin method for ServerTemplates structure
+func (q ServerTemplates) PrivateLogin(tdir string, tmplData map[string]interface{}) string {
+	if q.dasError != "" {
+		return q.dasError
+	}
+	q.dasError = parseTmpl(Config.Templates, "login.tmpl", tmplData)
+	return q.dasError
+}

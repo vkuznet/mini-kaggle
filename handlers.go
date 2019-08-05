@@ -108,6 +108,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	var templates ServerTemplates
 	tmplData := make(map[string]interface{})
 	tmplData["Message"] = msg
+	tmplData["Style"] = "alert is-success"
 	page := templates.Confirm(Config.Templates, tmplData)
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(_top + page + _bottom))
@@ -138,19 +139,56 @@ func DashboardHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	logRequest(r)
-	if _verbose > 0 {
-		log.Println("StatusHandler", r)
-	}
 	err := r.ParseForm()
 	if err != nil {
 		log.Println("DashboardHandler unable to parse input parameter", err)
 	}
-	stype := r.FormValue("stype")
 	var templates ServerTemplates
 	tmplData := make(map[string]interface{})
-	tmplData["Type"] = strings.ToTitle(stype)
-	tmplData["Records"] = GetScores(stype)
+	tmplData["Type"] = "public"
+	tmplData["Records"] = GetScores("public")
 	page := templates.Dashboard(Config.Templates, tmplData)
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(_top + page + _bottom))
+}
+
+// PrivateDashboardHandler handlers /status API
+func PrivateDashboardHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
+	logRequest(r)
+	err := r.ParseForm()
+	if err != nil {
+		log.Println("PrivateDashboardHandler unable to parse input parameter", err)
+	}
+	key := r.FormValue("key")
+	var templates ServerTemplates
+	tmplData := make(map[string]interface{})
+	var page string
+	if key == Config.PrivateKey {
+		tmplData["Type"] = "private"
+		tmplData["Records"] = GetScores("private")
+		page = templates.Dashboard(Config.Templates, tmplData)
+	} else {
+		tmplData["Message"] = "You are not authorized to use private dashboard"
+		tmplData["Style"] = "alert is-error"
+		page = templates.Confirm(Config.Templates, tmplData)
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(_top + page + _bottom))
+}
+
+// PrivateLoginHandler handlers Login requests
+func PrivateLoginHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
+	var templates ServerTemplates
+	tmplData := make(map[string]interface{})
+	page := templates.PrivateLogin(Config.Templates, tmplData)
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(_top + page + _bottom))
 }

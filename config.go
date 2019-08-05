@@ -24,6 +24,7 @@ type Configuration struct {
 	ScoreFile   string  `json:"scoreFile"`   // score file
 	ScoreSplit  float64 `json:"scoreSplit"`  // score split, e.g. 0.3
 	Destination string  `json:"destination"` // location of submissions
+	PrivateKey  string  `json:"privateKey"`  // access key for private dashboard
 	Metric      string  `json:"metric"`      // metric to use, e.g. AUC
 	Verbose     int     `json:"verbose"`     // verbosity level
 }

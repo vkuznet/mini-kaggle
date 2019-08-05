@@ -5,9 +5,10 @@
     "jscripts": "js",
     "styles": "css",
     "images": "images",
-    "ScoreFile": "homesite-scores.csv",
-    "ScoreSplit": 0.7,
-    "Destination": "/tmp/",
-    "Metric": "auc",
+    "scoreFile": "homesite-scores.csv",
+    "scoreSplit": 0.7,
+    "destination": "/tmp/",
+    "privateKey": "12345",
+    "metric": "auc",
     "verbose": 0
 }
