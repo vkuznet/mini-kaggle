@@ -11,8 +11,6 @@ import (
 	"log"
 	"os"
 	"strconv"
-
-	"github.com/gonum/stat"
 )
 
 // helper function to get scores from provided file
@@ -30,6 +28,9 @@ func getScores(file string) (float64, float64) {
 		if err == io.EOF {
 			break
 		}
+		// we assume here that our line in csv file contains at last
+		// position our prediction value. We parse it as float64
+		// as it represents generic case for predictions (ints or floats)
 		p, err := strconv.ParseFloat(line[1], 64)
 		if err != nil {
 			if _verbose > 0 {
@@ -53,28 +54,21 @@ func getScores(file string) (float64, float64) {
 	}
 	defer csvScoreFile.Close()
 	scoreReader := csv.NewReader(bufio.NewReader(csvScoreFile))
-	var labels []bool
+	var scores []interface{}
 	for {
 		line, err := scoreReader.Read()
 		if err == io.EOF {
 			break
 		}
-		// true is 0, false is 1 to make gonum be aligned with scikit-earn
-		// https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html
-		// https://godoc.org/github.com/gonum/stat#ROC
-		if line[0] == "0" || line[0] == "true" {
-			labels = append(labels, true)
-		} else {
-			labels = append(labels, false)
-		}
+		// we assume that score file contains at first position
+		// given score
+		scores = append(scores, line[0])
 	}
-	publicLabels := labels[0:split]
-	privateLabels := labels[split:len(labels)]
 
-	// sort our values and labels
-	stat.SortWeightedLabeled(publicPreds, publicLabels, nil)
-	stat.SortWeightedLabeled(privatePreds, privateLabels, nil)
+	// split scores into public and private sets
+	publicScores := scores[0:split]
+	privateScores := scores[split:len(scores)]
 
-	// return our public and private scores
-	return calcMetric(publicPreds, publicLabels), calcMetric(privatePreds, privateLabels)
+	// return our public and private metrics
+	return calcMetric(publicPreds, publicScores), calcMetric(privatePreds, privateScores)
 }

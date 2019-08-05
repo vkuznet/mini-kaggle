@@ -19,7 +19,20 @@ import (
 func calcMetric(args ...interface{}) float64 {
 	if Config.Metric == "auc" {
 		values := args[0].([]float64)
-		labels := args[1].([]bool)
+		scores := args[1].([]interface{})
+		var labels []bool
+		for i := range scores {
+			// true is 0, false is 1 to make gonum be aligned with scikit-earn
+			// https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html
+			// https://godoc.org/github.com/gonum/stat#ROC
+			if scores[i] == "0" || scores[i] == "true" {
+				labels = append(labels, true)
+			} else {
+				labels = append(labels, false)
+			}
+		}
+		// sort our values and labels
+		stat.SortWeightedLabeled(values, labels, nil)
 		return auc(values, labels)
 	} else if Config.Metric == "accuracy" {
 		yTrue := args[0].([]int)
