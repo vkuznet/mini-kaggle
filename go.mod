@@ -1,6 +1,6 @@
 module github.com/vkuznet/mini-kaggle
 
-go 1.19
+go 1.20
 
 require (
 	github.com/bsm/mlmetrics v0.3.0
